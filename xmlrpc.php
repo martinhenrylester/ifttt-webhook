@@ -39,8 +39,11 @@ switch($xml->methodName)
 				//the passed categories are parsed into an array
 				case 'categories':
 					$categories=array();
-					foreach($data->xpath('value/array/data/value/string') as $cat)
+					foreach($data->xpath('value/array/data/value/string') as $cat){
 						array_push($categories,(string)$cat);
+						list($data1, $data2) = explode(":", (string)$cat));
+						$obj->$data1 = $data2;
+					}
 					$obj->categories = $categories;
 					break;
 				
