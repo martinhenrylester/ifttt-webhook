@@ -1,4 +1,6 @@
 <?php
+require 'PushBullet.class.php';
+
 error_reporting(-1);
 ini_set('display_errors',1);
 $request_body = file_get_contents('php://input');
@@ -52,7 +54,12 @@ switch($xml->methodName)
 					$obj->{$data->name} = (string)$data->value->string;
 			}
 		}
-
+		
+		$p = new PushBullet($obj->API_KEY);
+		
+		$p->pushNote($obj->device_iden, $obj->title, $obj->body);
+		
+/**
 		//Make the webrequest
 		//Only if we have a valid url
 		if(valid_url($url,true))
@@ -74,6 +81,7 @@ switch($xml->methodName)
 			//since the url was invalid, we return 400 (Bad Request)
 			failure(400);
 		}
+*/
 		
 }
 
